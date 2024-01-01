@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./catalog.css";
+import { CardProduct } from "../../entities";
 
 export const Catalog = () => {
   return (
@@ -22,7 +23,7 @@ export const Catalog = () => {
           <Link to=""> Детская обувь</Link>
         </div>
       </div>
-      <div>карточки товаров</div>
+      <CardProduct />
     </div>
   );
 };

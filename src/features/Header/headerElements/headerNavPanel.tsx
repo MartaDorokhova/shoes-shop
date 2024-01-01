@@ -4,14 +4,14 @@ import "./headerNavPanel.css";
 export const HeaderNavPanel = () => {
   return (
     <div className="navPanel">
-      <div className="logo">Bosa Noga</div>
+      <div className="logo"></div>
       <div className="path">
         {" "}
         <Link to="/">Главная</Link>
       </div>
       <div className="path">
         {" "}
-        <Link to="/">Каталог</Link>
+        <Link to="/catalog">Каталог</Link>
       </div>
       <div className="path">
         {" "}
@@ -20,7 +20,7 @@ export const HeaderNavPanel = () => {
 
       <div className="path">
         {" "}
-        <Link to="/">Контакты</Link>
+        <Link to="/contacts">Контакты</Link>
       </div>
     </div>
   );

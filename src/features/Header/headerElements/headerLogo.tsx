@@ -1,5 +1,5 @@
 import "../header.css";
 
 export const HeaderLogo = () => {
-  return <div className="img">Картинка с сапогами</div>;
+  return <div className="img"> </div>;
 };

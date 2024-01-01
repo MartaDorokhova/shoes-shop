@@ -8,9 +8,9 @@ export const FooterInfo = () => {
       <div className="name">Информация</div>
       <Link to="/about">О магазине</Link>
       <br />
-      <Link to="/">Каталог</Link>
+      <Link to="/catalog">Каталог</Link>
       <br />
-      <Link to="/">Контакты</Link>
+      <Link to="/contacts">Контакты</Link>
       <br />
     </div>
   );
