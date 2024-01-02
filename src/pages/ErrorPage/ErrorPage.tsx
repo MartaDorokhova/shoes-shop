@@ -1,7 +1,7 @@
 import React from "react";
 import "./error.css";
 
-export const Error = () => {
+export const ErrorPage = () => {
   return (
     <div className="error">
       <div className="error-title">Страница не найдена </div>{" "}
