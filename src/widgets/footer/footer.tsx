@@ -1,8 +1,6 @@
 import React from "react";
 import "./footer.css";
-import { FooterInfo } from "./FooterElevtnts/footerInfo";
-import { FooterContacts } from "./FooterElevtnts/footerContacts";
-import { FooterPayment } from "./FooterElevtnts/footerPayment";
+import { FooterContacts, FooterInfo, FooterPayment } from "./components";
 
 export const Footer = () => {
   return (

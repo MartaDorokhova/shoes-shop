@@ -3,17 +3,19 @@
   display: flex;
   justify-content: space-between;
   width: 1100px;
-  height: 150px;
+  height: 200px;
 }
 
 .footer-element {
-  width: 380px;
+  width: 33%;
   background: floralwhite;
   padding: 10px;
   line-height: 1.8;
 }
 
 .contacts {
+  height: 250px;
+  display: block;
   text-align: right;
 }
 

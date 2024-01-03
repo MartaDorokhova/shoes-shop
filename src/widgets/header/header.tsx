@@ -1,7 +1,6 @@
 import React from "react";
 import "./header.css";
-import { HeaderNavPanel } from "./headerElements/headerNavPanel";
-import { HeaderLogo } from "./headerElements/headerLogo";
+import { HeaderLogo, HeaderNavPanel } from "./components";
 
 export const Header = () => {
   return (
