@@ -1,6 +1,6 @@
 import React from "react";
 import "./main.css";
-import { Catalog, Hits } from "../../features";
+import { Catalog, Hits } from "widgets";
 
 export const Main = () => {
   return (

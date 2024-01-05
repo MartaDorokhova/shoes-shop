@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./catalog.css";
-import { CardProduct } from "../../entities";
+import { CardProduct } from "entities";
 
 export const Catalog = () => {
   return (
