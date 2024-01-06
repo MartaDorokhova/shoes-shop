@@ -1,2 +1,2 @@
-export * from './headerLogo';
-export * from './headerNavPanel'
+export * from './HeaderLogo';
+export * from './HeaderNavPanel'

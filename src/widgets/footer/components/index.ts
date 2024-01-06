@@ -1,3 +1,3 @@
-export * from './footerContacts';
-export * from './footerInfo';
-export * from './footerPayment'
+export * from './FooterContacts';
+export * from './FooterInfo';
+export * from './FooterPayment'
