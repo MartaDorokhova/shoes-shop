@@ -1,11 +1,13 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./catalog.css";
-// import { CardProduct } from "entities";
-import { CardProduct } from "../../entities/cardProduct/CardProduct";
+import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
+import { CatalogSearch } from "features";
 
 export const Catalog = () => {
   return (
     <div className="catalog">
+      <CatalogSearch />
       <h2>Каталог</h2>
       <div className="nav-panel">
         <div>
