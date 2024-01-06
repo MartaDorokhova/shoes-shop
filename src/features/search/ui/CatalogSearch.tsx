@@ -1,5 +1,5 @@
 import React from "react";
-import "./catalogPage.css";
+import "./search.css";
 
 export const CatalogSearch = () => {
   return (

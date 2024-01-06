@@ -1,6 +1,6 @@
+import { CatalogSearch } from "features";
 import React from "react";
 import { Catalog } from "widgets";
-import { CatalogSearch } from "./CatalogSearch";
 
 export const CatalogPage = () => {
   return (
