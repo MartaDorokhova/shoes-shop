@@ -1,9 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import { itemAPI } from "api/api";
+import { hitsAPI, itemAPI } from "api/api";
 
 
 const rootReducer = combineReducers({
-    [itemAPI.reducerPath]: itemAPI.reducer
+    [itemAPI.reducerPath]: itemAPI.reducer,
+    [hitsAPI.reducerPath]: hitsAPI.reducer
+
 })
 
 export const setupStore = () => {
@@ -12,6 +14,8 @@ export const setupStore = () => {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
                 .concat(itemAPI.middleware)
+                .concat(hitsAPI.middleware)
+
     })
 }
 
