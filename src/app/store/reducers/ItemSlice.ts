@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ItemState {
-id: number;
-name:string;
-category: string;
-price: number;
-quantity: number;
+    title: string;
+    price: number;
+    images: Array<string>;
+    id: number;
+    category: number ;
 }
 
 const initialState:ItemState = {
 id:1,
-name:"",
-category: "",
+title:"",
+category: 1,
 price: 0,
-quantity: 0
+images:[],
 }
 
 export const itemSlice = createSlice({

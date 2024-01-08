@@ -1,6 +1,32 @@
 import React from "react";
 import "./cardProduct.css";
 
-export const CardProduct = () => {
-  return <div className="card-product">CardProduct</div>;
+interface CardProductProps {
+  title: string;
+  price: number;
+  images: Array<string>;
+  id: number;
+  category: number;
+}
+
+export const CardProduct: React.FC<CardProductProps> = ({
+  title,
+  price,
+  images,
+  id,
+  category,
+}) => {
+  return (
+    <div className="card-product">
+      <>
+        {" "}
+        <img src={images[1]} alt={title} width={210} />
+      </>
+      <div> {title}</div>
+      <div> {price} - руб</div>
+      <>
+        <button>Заказать</button>
+      </>
+    </div>
+  );
 };

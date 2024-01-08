@@ -4,19 +4,19 @@ import { ItemState } from "app/store/reducers/ItemSlice";
 
 export const itemAPI = createApi({
   reducerPath: "itemAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:7070" }),
   tagTypes: ["Item"],
   endpoints: (build) => ({
-    fetchAllPosts: build.query<ItemState[], number>({
+    fetchAllItems: build.query<ItemState[], number>({
       query: (limit: number = 5) => ({
-        url: `/items`,
+        url: `/api/items`,
         params: {
           _limit: limit,
         },
       }),
       providesTags: (result) => ["Item"],
     }),
-    createPost: build.mutation<ItemState, ItemState>({
+    createItem: build.mutation<ItemState, ItemState>({
       query: (item) => ({
         url: `/items`,
         method: "POST",
@@ -24,7 +24,7 @@ export const itemAPI = createApi({
       }),
       invalidatesTags: ["Item"],
     }),
-    updatePost: build.mutation<ItemState, ItemState>({
+    updateItem: build.mutation<ItemState, ItemState>({
       query: (item) => ({
         url: `/items/${item.id}`,
         method: "PUT",
@@ -32,7 +32,7 @@ export const itemAPI = createApi({
       }),
       invalidatesTags: ["Item"],
     }),
-    deletePost: build.mutation<ItemState, ItemState>({
+    deleteItem: build.mutation<ItemState, ItemState>({
       query: (item) => ({
         url: `/items/${item.id}`,
         method: "DELETE",
@@ -41,3 +41,5 @@ export const itemAPI = createApi({
     }),
   }),
 });
+
+export const { useFetchAllItemsQuery } = itemAPI;
