@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import "./catalog.css";
 import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
 import { CatalogSearch } from "features";
+import { useFetchAllItemsQuery } from "api/api";
 
 export const Catalog = () => {
+  const { data: items } = useFetchAllItemsQuery(4);
   return (
     <div className="catalog">
       <CatalogSearch />
@@ -26,7 +28,21 @@ export const Catalog = () => {
           <Link to=""> Детская обувь</Link>
         </div>
       </div>
-      <CardProduct />
+      <div className="items-card">
+        {items &&
+          items.map(({ title, price, category, images, id }) => (
+            <div key={id}>
+              {" "}
+              <CardProduct
+                id={id}
+                title={title}
+                price={price}
+                images={images}
+                category={category}
+              />
+            </div>
+          ))}
+      </div>
     </div>
   );
 };
