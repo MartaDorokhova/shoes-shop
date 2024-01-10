@@ -12,8 +12,6 @@ export const setupStore = () => {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware()
                 .concat(baseAPI.middleware)
-                .concat(hitsAPI.middleware)
-                .concat(catalogAPI.middleware)
 
     })
 }
