@@ -18,14 +18,12 @@ export const CardProduct: React.FC<CardProductProps> = ({
 }) => {
   return (
     <div className="card-product">
-      <>
-        <img src={images[0]} alt={title} width={210} />
-      </>
+      <img src={images[0]} alt={title} width={210} />
+
       <div> {title}</div>
       <div> {price} руб.</div>
-      <>
-        <button>Заказать</button>
-      </>
+
+      <button>Заказать</button>
     </div>
   );
 };
