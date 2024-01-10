@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./catalog.css";
 import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
-import { CatalogSearch, useFetchAllItemsQuery } from "features";
+import { CatalogSearch } from "features";
 
-import { useFetchAllСategoriesQuery } from "features/catalog/api/categoriesApi";
+import {
+  useFetchAllItemsQuery,
+  useFetchAllСategoriesQuery,
+} from "features/catalog";
 
 export const Catalog = () => {
   const { data: items } = useFetchAllItemsQuery(4);
@@ -26,7 +29,6 @@ export const Catalog = () => {
         {items &&
           items.map(({ title, price, category, images, id }) => (
             <div key={id}>
-              {" "}
               <CardProduct
                 id={id}
                 title={title}

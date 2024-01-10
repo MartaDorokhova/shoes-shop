@@ -19,7 +19,6 @@ export const CardProduct: React.FC<CardProductProps> = ({
   return (
     <div className="card-product">
       <>
-        {" "}
         <img src={images[0]} alt={title} width={210} />
       </>
       <div> {title}</div>

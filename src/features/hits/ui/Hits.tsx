@@ -23,7 +23,7 @@ export const Hits = () => {
                 </div>
               ))}
           </div>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );
