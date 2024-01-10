@@ -34,6 +34,6 @@ export const catalogAPI = baseAPI.injectEndpoints({
       }),
 })
 
-export const { useFetchAllСategoriesQuery } = catalogAPI;
-export const { useFetchAllItemsQuery } = catalogAPI;
+export const { useFetchAllСategoriesQuery, useFetchAllItemsQuery  } = catalogAPI;
+
 
