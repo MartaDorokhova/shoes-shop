@@ -1,0 +1,20 @@
+.nav-panel {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 250px 20px 250px;
+}
+.catalog {
+  width: 1100px;
+}
+
+.items-card {
+  display: flex;
+  flex-wrap: wrap; /* Разрешает перенос элементов на новую строку */
+  justify-content: space-between; /* Равномерное распределение по горизонтали */
+  align-items: stretch;
+}
+
+/* .categories {
+  margin: 10px;
+
+} */
