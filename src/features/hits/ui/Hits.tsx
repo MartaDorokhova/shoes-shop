@@ -1,4 +1,4 @@
-import { useFetchAllHitsQuery } from "api/api";
+import { useFetchAllHitsQuery } from "../api/hitsApi";
 import "./hits.css";
 import { CardProduct } from "entities/cardProduct/CardProduct";
 

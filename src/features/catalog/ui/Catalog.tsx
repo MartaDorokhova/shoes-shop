@@ -2,31 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./catalog.css";
 import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
-import { CatalogSearch } from "features";
-import { useFetchAllItemsQuery } from "api/api";
+import { CatalogSearch, useFetchAllItemsQuery } from "features";
+
+import { useFetchAllСategoriesQuery } from "features/catalog/api/categoriesApi";
 
 export const Catalog = () => {
   const { data: items } = useFetchAllItemsQuery(4);
+  const { data: categories } = useFetchAllСategoriesQuery(4);
+
   return (
     <div className="catalog">
       <CatalogSearch />
       <h2>Каталог</h2>
       <div className="nav-panel">
-        <div>
-          <Link to="">Все</Link>
-        </div>
-        <div>
-          <Link to=""> Женская обувь</Link>
-        </div>
-        <div>
-          <Link to=""> Мужская обувь</Link>
-        </div>
-        <div>
-          <Link to=""> Обувь унисекс</Link>
-        </div>
-        <div>
-          <Link to=""> Детская обувь</Link>
-        </div>
+        <Link to="">Все</Link>
+        {categories?.map(({ id, title }) => (
+          <div key={id} className="categories">
+            <Link to="">{title}</Link>
+          </div>
+        ))}
       </div>
       <div className="items-card">
         {items &&
