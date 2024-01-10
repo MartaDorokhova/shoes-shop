@@ -23,11 +23,12 @@ export const catalogAPI = baseAPI.injectEndpoints({
             },
           }),
              }),
-             fetchAllItems: build.query<ItemState[], number>({
-              query: (limit: number = 5) => ({
+             fetchAllItems: build.query<ItemState[], { limit: number; categoryId?: number }>({
+              query: ({limit, categoryId}) => ({
                 url: `/api/items`,
                 params: {
                   _limit: limit,
+                  ...(categoryId && { categoryId }), 
                 },
               }),
                  }),

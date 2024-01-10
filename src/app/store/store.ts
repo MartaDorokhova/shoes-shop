@@ -1,6 +1,5 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import { baseAPI} from "api/api";
-import { catalogAPI, hitsAPI } from "features";
 
 const rootReducer = combineReducers({
     [baseAPI.reducerPath]: baseAPI.reducer,

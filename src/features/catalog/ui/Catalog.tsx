@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import "./catalog.css";
 import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
 import { CatalogSearch } from "features";
@@ -10,18 +9,28 @@ import {
 } from "features/catalog";
 
 export const Catalog = () => {
-  const { data: items } = useFetchAllItemsQuery(4);
+  const [categoryId, setCategoryId] = useState(0);
+
+  const { data: items } = useFetchAllItemsQuery({ limit: 4, categoryId });
   const { data: categories } = useFetchAllСategoriesQuery(4);
+
+  const onChangeCategory = (id: number) => {
+    setCategoryId(id);
+  };
 
   return (
     <div className="catalog">
       <CatalogSearch />
       <h2>Каталог</h2>
       <div className="nav-panel">
-        <Link to="">Все</Link>
+        <button className="categories" onClick={() => onChangeCategory(0)}>
+          Все
+        </button>
         {categories?.map(({ id, title }) => (
-          <div key={id} className="categories">
-            <Link to="">{title}</Link>
+          <div key={id}>
+            <button className="categories" onClick={() => onChangeCategory(id)}>
+              {title}
+            </button>
           </div>
         ))}
       </div>

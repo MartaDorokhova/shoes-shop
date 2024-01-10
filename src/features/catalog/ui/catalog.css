@@ -14,7 +14,9 @@
   align-items: stretch;
 }
 
-/* .categories {
-  margin: 10px;
-
-} */
+.categories {
+  border: none;
+  background: white;
+  color: #2885db;
+  cursor: pointer;
+}
