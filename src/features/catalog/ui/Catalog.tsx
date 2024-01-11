@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import "./catalog.css";
-import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
 import { CatalogSearch } from "features";
-
 import {
   useFetchAllItemsQuery,
   useFetchAllСategoriesQuery,
 } from "features/catalog";
+import { CardItem } from "entities/cardItem";
+
+const ALL_CATEGORIES = 0;
 
 export const Catalog = () => {
-  const [categoryId, setCategoryId] = useState(0);
+  const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
 
-  const { data: items } = useFetchAllItemsQuery({ limit: 4, categoryId });
+  const { data: items } = useFetchAllItemsQuery({
+    limit: 6,
+    categoryId,
+    offset: 2,
+  });
   const { data: categories } = useFetchAllСategoriesQuery(4);
 
   const onChangeCategory = (id: number) => {
@@ -23,7 +28,10 @@ export const Catalog = () => {
       <CatalogSearch />
       <h2>Каталог</h2>
       <div className="nav-panel">
-        <button className="categories" onClick={() => onChangeCategory(0)}>
+        <button
+          className="categories"
+          onClick={() => onChangeCategory(ALL_CATEGORIES)}
+        >
           Все
         </button>
         {categories?.map(({ id, title }) => (
@@ -35,18 +43,17 @@ export const Catalog = () => {
         ))}
       </div>
       <div className="items-card">
-        {items &&
-          items.map(({ title, price, category, images, id }) => (
-            <div key={id}>
-              <CardProduct
-                id={id}
-                title={title}
-                price={price}
-                images={images}
-                category={category}
-              />
-            </div>
-          ))}
+        {items?.map(({ title, price, category, images, id }) => (
+          <div key={id}>
+            <CardItem
+              id={id}
+              title={title}
+              price={price}
+              images={images}
+              category={category}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

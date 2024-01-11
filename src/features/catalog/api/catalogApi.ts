@@ -1,34 +1,20 @@
 import { baseAPI } from 'api/api';
-
-interface Category {
-  id:number;
-  title: string
-}
-
-export interface ItemState {
-  title: string;
-  price: number;
-  images: Array<string>;
-  id: number;
-  category: number ;
-}
+import { Category, ItemState} from '../interfaces';
 
 export const catalogAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
         fetchAllСategories: build.query<Category[], number>({
-          query: (limit: number = 5) => ({
+          query: () => ({
             url: `/api/categories`,
-            params: {
-              _limit: limit,
-            },
+
           }),
              }),
-             fetchAllItems: build.query<ItemState[], { limit: number; categoryId?: number }>({
-              query: ({limit, categoryId}) => ({
+             fetchAllItems: build.query<ItemState[], { limit: number; categoryId?: number; offset?:number }>({
+              query: ({ categoryId, offset}) => ({
                 url: `/api/items`,
-                params: {
-                  _limit: limit,
+                params: {          
                   ...(categoryId && { categoryId }), 
+                  ...(offset && { offset }), 
                 },
               }),
                  }),

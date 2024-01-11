@@ -1,12 +1,5 @@
 import { baseAPI } from 'api/api';
-
-export interface HitState {
-  title: string;
-  price: number;
-  images: Array<string>;
-  id: number;
-  category: number ;
-}
+import { HitState } from '../interfaces';
 
 export const hitsAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
