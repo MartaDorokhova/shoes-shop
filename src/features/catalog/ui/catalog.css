@@ -5,6 +5,7 @@
 }
 .catalog {
   width: 1100px;
+  padding-bottom: 10px;
 }
 
 .items-card {
@@ -14,7 +15,19 @@
   align-items: stretch;
 }
 
-/* .categories {
-  margin: 10px;
+.categories {
+  border: none;
+  background: white;
+  color: #2885db;
+  cursor: pointer;
+}
 
-} */
+.activeButton {
+  cursor: pointer;
+}
+.inactiveButton {
+  border-color: rgb(205, 205, 205);
+  background-color: rgb(205, 205, 205);
+  color: #fff;
+  cursor: none;
+}

@@ -1,15 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import "./cardProduct.css";
+import { CardItemProps } from "./interfaces";
 
-interface CardProductProps {
-  title: string;
-  price: number;
-  images: Array<string>;
-  id: number;
-  category: number;
-}
-
-export const CardProduct: React.FC<CardProductProps> = ({
+export const CardItem: FC<CardItemProps> = ({
   title,
   price,
   images,

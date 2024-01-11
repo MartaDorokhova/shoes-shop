@@ -1,6 +1,6 @@
 import { useFetchAllHitsQuery } from "../api/hitsApi";
 import "./hits.css";
-import { CardProduct } from "entities/cardProduct/CardProduct";
+import { CardItem } from "entities/cardItem/CardItem";
 
 export const Hits = () => {
   const { data: hits } = useFetchAllHitsQuery(3);
@@ -12,15 +12,14 @@ export const Hits = () => {
           <div className="items-card">
             {hits &&
               hits.map(({ title, price, images, id, category }) => (
-                <div key={id}>
-                  <CardProduct
-                    id={id}
-                    title={title}
-                    price={price}
-                    images={images}
-                    category={category}
-                  />
-                </div>
+                <CardItem
+                  key={id}
+                  id={id}
+                  title={title}
+                  price={price}
+                  images={images}
+                  category={category}
+                />
               ))}
           </div>
         </div>

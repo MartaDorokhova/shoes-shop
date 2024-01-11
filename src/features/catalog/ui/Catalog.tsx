@@ -1,44 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import "./catalog.css";
-import { CardProduct } from "entities/cardProduct"; //todo поправить импорт
 import { CatalogSearch } from "features";
-
 import {
   useFetchAllItemsQuery,
   useFetchAllСategoriesQuery,
 } from "features/catalog";
+import { CardItem } from "entities/cardItem";
+
+const ALL_CATEGORIES = 0;
+const FIRST_PAGE = 0;
 
 export const Catalog = () => {
-  const { data: items } = useFetchAllItemsQuery(4);
-  const { data: categories } = useFetchAllСategoriesQuery(4);
+  const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
+  const [offset, setOffSet] = useState(FIRST_PAGE);
+  const [isActive, setIsActive] = useState(true);
+
+  const { data: items } = useFetchAllItemsQuery({
+    categoryId,
+    offset,
+  });
+  const { data: categories } = useFetchAllСategoriesQuery({});
+
+  const onChangeCategory = (id: number) => {
+    setCategoryId(id);
+  };
+
+  const addItems = () => {
+    setOffSet((prev) => prev + 6);
+
+    if (!items || offset >= items.length) {
+      setOffSet((prev) => prev - 6);
+      setIsActive(false);
+    }
+  };
 
   return (
     <div className="catalog">
       <CatalogSearch />
       <h2>Каталог</h2>
       <div className="nav-panel">
-        <Link to="">Все</Link>
+        <button
+          className="categories"
+          onClick={() => onChangeCategory(ALL_CATEGORIES)}
+        >
+          Все
+        </button>
         {categories?.map(({ id, title }) => (
-          <div key={id} className="categories">
-            <Link to="">{title}</Link>
+          <div key={id}>
+            <button className="categories" onClick={() => onChangeCategory(id)}>
+              {title}
+            </button>
           </div>
         ))}
       </div>
       <div className="items-card">
-        {items &&
-          items.map(({ title, price, category, images, id }) => (
-            <div key={id}>
-              <CardProduct
-                id={id}
-                title={title}
-                price={price}
-                images={images}
-                category={category}
-              />
-            </div>
-          ))}
+        {items?.map(({ title, price, category, images, id }) => (
+          <CardItem
+            key={id}
+            id={id}
+            title={title}
+            price={price}
+            images={images}
+            category={category}
+          />
+        ))}
       </div>
+      <button
+        onClick={addItems}
+        disabled={!isActive || !items || items.length === 0}
+        className={isActive ? "activeButton" : "inactiveButton"}
+      >
+        Загрузить еще
+      </button>
     </div>
   );
 };
