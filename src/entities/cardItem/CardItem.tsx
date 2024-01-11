@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import "./cardProduct.css";
 import { CardItemProps } from "./interfaces";
 
-export const CardItem: React.FC<CardItemProps> = ({
+export const CardItem: FC<CardItemProps> = ({
   title,
   price,
   images,

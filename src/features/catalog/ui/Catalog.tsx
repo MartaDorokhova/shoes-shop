@@ -13,9 +13,7 @@ export const Catalog = () => {
   const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
 
   const { data: items } = useFetchAllItemsQuery({
-    limit: 6,
     categoryId,
-    offset: 2,
   });
   const { data: categories } = useFetchAllСategoriesQuery(4);
 

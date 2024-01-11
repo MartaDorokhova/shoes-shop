@@ -9,7 +9,7 @@ export const catalogAPI = baseAPI.injectEndpoints({
 
           }),
              }),
-             fetchAllItems: build.query<ItemState[], { limit: number; categoryId?: number; offset?:number }>({
+             fetchAllItems: build.query<ItemState[], { categoryId?: number; offset?:number }>({
               query: ({ categoryId, offset}) => ({
                 url: `/api/items`,
                 params: {          
