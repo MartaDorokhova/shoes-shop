@@ -15,7 +15,7 @@ export const Catalog = () => {
   const { data: items } = useFetchAllItemsQuery({
     categoryId,
   });
-  const { data: categories } = useFetchAllСategoriesQuery(4);
+  const { data: categories } = useFetchAllСategoriesQuery({});
 
   const onChangeCategory = (id: number) => {
     setCategoryId(id);

@@ -3,7 +3,7 @@ import { Category, ItemState} from '../interfaces';
 
 export const catalogAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-        fetchAllСategories: build.query<Category[], number>({
+        fetchAllСategories: build.query<Category[], {}>({
           query: () => ({
             url: `/api/categories`,
 
