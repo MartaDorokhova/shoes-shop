@@ -1,9 +1,9 @@
 import { baseAPI } from 'api/api';
-import { HitState } from '../interfaces';
+import { HitListResponse } from '../interfaces';
 
 export const hitsAPI = baseAPI.injectEndpoints({
   endpoints: (build) => ({
-        fetchAllHits: build.query<HitState[], number>({
+        fetchAllHits: build.query<HitListResponse[], number>({
           query: () => ({
             url: `/api/top-sales`
 

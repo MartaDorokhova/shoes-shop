@@ -1,4 +1,4 @@
-export interface HitState {
+export interface HitListResponse {
     title: string;
     price: number;
     images: Array<string>;

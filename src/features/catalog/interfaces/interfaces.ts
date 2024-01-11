@@ -1,9 +1,9 @@
-export interface Category {
+export interface CategoryListResponse {
     id:number;
     title: string
   }
   
-  export interface ItemState {
+  export interface ItemListResponse {
     title: string;
     price: number;
     images: Array<string>;

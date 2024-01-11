@@ -12,15 +12,14 @@ export const Hits = () => {
           <div className="items-card">
             {hits &&
               hits.map(({ title, price, images, id, category }) => (
-                <div key={id}>
-                  <CardItem
-                    id={id}
-                    title={title}
-                    price={price}
-                    images={images}
-                    category={category}
-                  />
-                </div>
+                <CardItem
+                  key={id}
+                  id={id}
+                  title={title}
+                  price={price}
+                  images={images}
+                  category={category}
+                />
               ))}
           </div>
         </div>
