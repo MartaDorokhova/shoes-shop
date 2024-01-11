@@ -16,6 +16,7 @@
 }
 
 .categories {
+  font-size: 16px;
   border: none;
   background: white;
   color: #2885db;
@@ -30,4 +31,8 @@
   background-color: rgb(205, 205, 205);
   color: #fff;
   cursor: none;
+}
+
+.selected {
+  color: red;
 }

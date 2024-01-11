@@ -40,16 +40,22 @@ export const Catalog = () => {
       <h2>Каталог</h2>
       <div className="nav-panel">
         <button
-          className="categories"
+          className={`categories ${
+            categoryId === ALL_CATEGORIES ? "selected" : ""
+          }`}
           onClick={() => onChangeCategory(ALL_CATEGORIES)}
         >
           Все
         </button>
         {categories?.map(({ id, title }) => (
           <div key={id}>
-            <button className="categories" onClick={() => onChangeCategory(id)}>
+            <div
+              // className="categories"
+              className={`categories ${categoryId === id ? "selected" : ""}`}
+              onClick={() => onChangeCategory(id)}
+            >
               {title}
-            </button>
+            </div>
           </div>
         ))}
       </div>
