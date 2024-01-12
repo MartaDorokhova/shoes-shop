@@ -9,10 +9,10 @@ export const catalogAPI = baseAPI.injectEndpoints({
 
           }),
              }),
-             fetchAllItems: build.query<ItemListResponse[], { categoryId?: number; offset?:number }>({
-              query: ({ categoryId, offset}) => ({
-                url: `/api/items`,
-                params: {          
+       fetchAllItems: build.query<ItemListResponse[], { categoryId?: number; offset?:number }>({
+          query: ({ categoryId, offset}) => ({
+             url: `/api/items`,
+             params: {          
                   ...(categoryId && { categoryId }), 
                   ...(offset && { offset }), 
                 },

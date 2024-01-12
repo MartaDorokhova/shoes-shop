@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./catalog.css";
 import { CatalogSearch } from "features";
 import {
@@ -6,6 +6,7 @@ import {
   useFetchAllСategoriesQuery,
 } from "features/catalog";
 import { CardItem } from "entities/cardItem";
+import { ItemListResponse } from "../interfaces";
 
 const ALL_CATEGORIES = 0;
 const FIRST_PAGE = 0;
@@ -13,7 +14,7 @@ const FIRST_PAGE = 0;
 export const Catalog = () => {
   const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
   const [offset, setOffSet] = useState(FIRST_PAGE);
-  const [isActive, setIsActive] = useState(true);
+  const [allItems, setAllItems] = useState<ItemListResponse[]>([]);
 
   const { data: items } = useFetchAllItemsQuery({
     categoryId,
@@ -22,17 +23,20 @@ export const Catalog = () => {
   const { data: categories } = useFetchAllСategoriesQuery({});
 
   const onChangeCategory = (id: number) => {
+    setOffSet(FIRST_PAGE);
+    setAllItems([]);
     setCategoryId(id);
   };
 
   const addItems = () => {
     setOffSet((prev) => prev + 6);
-
-    if (!items || offset >= items.length) {
-      setOffSet((prev) => prev - 6);
-      setIsActive(false);
-    }
   };
+
+  useEffect(() => {
+    if (items) {
+      setAllItems((prevItems) => [...prevItems, ...items]);
+    }
+  }, [items]);
 
   return (
     <div className="catalog">
@@ -50,7 +54,6 @@ export const Catalog = () => {
         {categories?.map(({ id, title }) => (
           <div key={id}>
             <div
-              // className="categories"
               className={`categories ${categoryId === id ? "selected" : ""}`}
               onClick={() => onChangeCategory(id)}
             >
@@ -60,7 +63,7 @@ export const Catalog = () => {
         ))}
       </div>
       <div className="items-card">
-        {items?.map(({ title, price, category, images, id }) => (
+        {allItems?.map(({ title, price, category, images, id }) => (
           <CardItem
             key={id}
             id={id}
@@ -71,13 +74,11 @@ export const Catalog = () => {
           />
         ))}
       </div>
-      <button
-        onClick={addItems}
-        disabled={!isActive || !items || items.length === 0}
-        className={isActive ? "activeButton" : "inactiveButton"}
-      >
-        Загрузить еще
-      </button>
+      {!items || items.length === 0 ? (
+        ""
+      ) : (
+        <button onClick={addItems}>Загрузить еще</button>
+      )}
     </div>
   );
 };
