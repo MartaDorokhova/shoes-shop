@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./catalog.css";
 import { CatalogSearch } from "features";
 import {
@@ -10,33 +10,31 @@ import { ItemListResponse } from "../interfaces";
 
 const ALL_CATEGORIES = 0;
 const FIRST_PAGE = 0;
+let allItems: ItemListResponse[] = [];
 
 export const Catalog = () => {
   const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
   const [offset, setOffSet] = useState(FIRST_PAGE);
-  const [allItems, setAllItems] = useState<ItemListResponse[]>([]);
 
   const { data: items } = useFetchAllItemsQuery({
     categoryId,
     offset,
   });
+
   const { data: categories } = useFetchAllСategoriesQuery({});
 
   const onChangeCategory = (id: number) => {
     setOffSet(FIRST_PAGE);
-    setAllItems([]);
+    allItems = [];
     setCategoryId(id);
   };
 
   const addItems = () => {
     setOffSet((prev) => prev + 6);
-  };
-
-  useEffect(() => {
-    if (items) {
-      setAllItems((prevItems) => [...prevItems, ...items]);
+    if (items && allItems) {
+      allItems.push(...items);
     }
-  }, [items]);
+  };
 
   return (
     <div className="catalog">
