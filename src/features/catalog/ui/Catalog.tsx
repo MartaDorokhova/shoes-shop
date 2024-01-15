@@ -42,11 +42,11 @@ export const Catalog = () => {
     offsetRef.current = START_PAGE;
   };
 
-  const allCategoryButton = `categories ${
+  const categoryButtonClass = `categories ${
     categoryRef.current === ALL_CATEGORIES ? "selected" : ""
   }`;
 
-  const changeCategoryButton = (id: number) =>
+  const generateCategoryButtonClass = (id: number) =>
     `categories ${categoryRef.current === id ? "selected" : ""}`;
 
   const handleLoadMoreItems = () => {
@@ -81,7 +81,7 @@ export const Catalog = () => {
       <h2>Каталог</h2>
       <div className="nav-panel">
         <button
-          className={allCategoryButton}
+          className={categoryButtonClass}
           onClick={() => handleChangeCategory(ALL_CATEGORIES)}
         >
           Все
@@ -89,7 +89,7 @@ export const Catalog = () => {
         {categories?.map(({ id, title }) => (
           <div key={id}>
             <div
-              className={changeCategoryButton(id)}
+              className={generateCategoryButtonClass(id)}
               onClick={() => handleChangeCategory(id)}
             >
               {title}
