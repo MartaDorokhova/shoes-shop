@@ -17,6 +17,8 @@ let allItems: ItemListResponse[] = [];
 export const Catalog = () => {
   const offsetRef = useRef(0);
   const categoryRef = useRef(ALL_CATEGORIES);
+  const searchPhraseRef = useRef("");
+  const changeSearchPhraseRef = useRef(false);
   const changeCategoryRef = useRef(false);
 
   const {
@@ -27,6 +29,7 @@ export const Catalog = () => {
   } = useFetchAllItemsQuery({
     categoryId: categoryRef.current,
     offset: offsetRef.current,
+    q: searchPhraseRef.current,
   });
 
   const { data: categories } = useFetchAllСategoriesQuery({});
@@ -48,11 +51,19 @@ export const Catalog = () => {
 
   const handleLoadMoreItems = () => {
     changeCategoryRef.current = false;
+    changeSearchPhraseRef.current = false;
     offsetRef.current += OFFSET;
     refetch();
   };
 
+  const onSearch = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    changeSearchPhraseRef.current = true;
+    searchPhraseRef.current = target.value;
+    refetch();
+  };
+
   allItems = useMemo(() => {
+    if (changeSearchPhraseRef.current && items) return [...items];
     if (changeCategoryRef.current && items) return [...items];
     if (items) return [...allItems, ...items];
     return [];
@@ -63,7 +74,10 @@ export const Catalog = () => {
 
   return (
     <div className="catalog">
-      <CatalogSearch />
+      <CatalogSearch
+        searchPhrase={searchPhraseRef.current}
+        onChange={onSearch}
+      />
       <h2>Каталог</h2>
       <div className="nav-panel">
         <button
