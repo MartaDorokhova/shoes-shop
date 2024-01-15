@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useRef } from "react";
 import "./catalog.css";
 import { CatalogSearch } from "features";
 import {
@@ -7,34 +7,59 @@ import {
 } from "features/catalog";
 import { CardItem } from "entities/cardItem";
 import { ItemListResponse } from "../interfaces";
+import { ErrorPage } from "pages";
 
 const ALL_CATEGORIES = 0;
-const FIRST_PAGE = 0;
+const OFFSET = 6;
+const START_PAGE = 0;
 let allItems: ItemListResponse[] = [];
 
 export const Catalog = () => {
-  const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
-  const [offset, setOffSet] = useState(FIRST_PAGE);
+  const offsetRef = useRef(0);
+  const categoryRef = useRef(ALL_CATEGORIES);
+  const changeCategoryRef = useRef(false);
 
-  const { data: items } = useFetchAllItemsQuery({
-    categoryId,
-    offset,
+  const {
+    data: items,
+    refetch,
+    isError,
+    isLoading,
+  } = useFetchAllItemsQuery({
+    categoryId: categoryRef.current,
+    offset: offsetRef.current,
   });
 
   const { data: categories } = useFetchAllСategoriesQuery({});
 
-  const onChangeCategory = (id: number) => {
-    setOffSet(FIRST_PAGE);
+  const handleChangeCategory = (id: number) => {
     allItems = [];
-    setCategoryId(id);
+    refetch();
+    changeCategoryRef.current = true;
+    categoryRef.current = id;
+    offsetRef.current = START_PAGE;
   };
 
-  const addItems = () => {
-    setOffSet((prev) => prev + 6);
-    if (items && allItems) {
-      allItems.push(...items);
-    }
+  const allCategoryButton = `categories ${
+    categoryRef.current === ALL_CATEGORIES ? "selected" : ""
+  }`;
+
+  const changeCategoryButton = (id: number) =>
+    `categories ${categoryRef.current === id ? "selected" : ""}`;
+
+  const handleLoadMoreItems = () => {
+    changeCategoryRef.current = false;
+    offsetRef.current += OFFSET;
+    refetch();
   };
+
+  allItems = useMemo(() => {
+    if (changeCategoryRef.current && items) return [...items];
+    if (items) return [...allItems, ...items];
+    return [];
+  }, [items]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <ErrorPage />;
 
   return (
     <div className="catalog">
@@ -42,18 +67,16 @@ export const Catalog = () => {
       <h2>Каталог</h2>
       <div className="nav-panel">
         <button
-          className={`categories ${
-            categoryId === ALL_CATEGORIES ? "selected" : ""
-          }`}
-          onClick={() => onChangeCategory(ALL_CATEGORIES)}
+          className={allCategoryButton}
+          onClick={() => handleChangeCategory(ALL_CATEGORIES)}
         >
           Все
         </button>
         {categories?.map(({ id, title }) => (
           <div key={id}>
             <div
-              className={`categories ${categoryId === id ? "selected" : ""}`}
-              onClick={() => onChangeCategory(id)}
+              className={changeCategoryButton(id)}
+              onClick={() => handleChangeCategory(id)}
             >
               {title}
             </div>
@@ -73,9 +96,9 @@ export const Catalog = () => {
         ))}
       </div>
       {!items || items.length === 0 ? (
-        ""
+        <></>
       ) : (
-        <button onClick={addItems}>Загрузить еще</button>
+        <button onClick={handleLoadMoreItems}>Загрузить еще</button>
       )}
     </div>
   );
