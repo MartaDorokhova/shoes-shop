@@ -10,24 +10,19 @@
 
 .items-card {
   display: flex;
-  flex-wrap: wrap; /* Разрешает перенос элементов на новую строку */
-  justify-content: space-between; /* Равномерное распределение по горизонтали */
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: stretch;
 }
 
 .categories {
+  font-size: 16px;
   border: none;
   background: white;
   color: #2885db;
   cursor: pointer;
 }
 
-.activeButton {
-  cursor: pointer;
-}
-.inactiveButton {
-  border-color: rgb(205, 205, 205);
-  background-color: rgb(205, 205, 205);
-  color: #fff;
-  cursor: none;
+.selected {
+  color: red;
 }

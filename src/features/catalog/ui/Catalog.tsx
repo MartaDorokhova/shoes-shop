@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useRef } from "react";
 import "./catalog.css";
 import { CatalogSearch } from "features";
 import {
@@ -6,55 +6,99 @@ import {
   useFetchAllСategoriesQuery,
 } from "features/catalog";
 import { CardItem } from "entities/cardItem";
+import { ItemListResponse } from "../interfaces";
+import { ErrorPage } from "pages";
 
 const ALL_CATEGORIES = 0;
-const FIRST_PAGE = 0;
+const OFFSET = 6;
+const START_PAGE = 0;
+let allItems: ItemListResponse[] = [];
 
 export const Catalog = () => {
-  const [categoryId, setCategoryId] = useState(ALL_CATEGORIES);
-  const [offset, setOffSet] = useState(FIRST_PAGE);
-  const [isActive, setIsActive] = useState(true);
+  const offsetRef = useRef(0);
+  const categoryRef = useRef(ALL_CATEGORIES);
+  const searchPhraseRef = useRef("");
+  const changeSearchPhraseRef = useRef(false);
+  const changeCategoryRef = useRef(false);
 
-  const { data: items } = useFetchAllItemsQuery({
-    categoryId,
-    offset,
+  const {
+    data: items,
+    refetch,
+    isError,
+    isLoading,
+  } = useFetchAllItemsQuery({
+    categoryId: categoryRef.current,
+    offset: offsetRef.current,
+    q: searchPhraseRef.current,
   });
+
   const { data: categories } = useFetchAllСategoriesQuery({});
 
-  const onChangeCategory = (id: number) => {
-    setCategoryId(id);
+  const handleChangeCategory = (id: number) => {
+    allItems = [];
+    refetch();
+    changeCategoryRef.current = true;
+    categoryRef.current = id;
+    offsetRef.current = START_PAGE;
   };
 
-  const addItems = () => {
-    setOffSet((prev) => prev + 6);
+  const categoryButtonClass = `categories ${
+    categoryRef.current === ALL_CATEGORIES ? "selected" : ""
+  }`;
 
-    if (!items || offset >= items.length) {
-      setOffSet((prev) => prev - 6);
-      setIsActive(false);
-    }
+  const generateCategoryButtonClass = (id: number) =>
+    `categories ${categoryRef.current === id ? "selected" : ""}`;
+
+  const handleLoadMoreItems = () => {
+    changeCategoryRef.current = false;
+    changeSearchPhraseRef.current = false;
+    offsetRef.current += OFFSET;
+    refetch();
   };
+
+  const onSearch = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    changeSearchPhraseRef.current = true;
+    searchPhraseRef.current = target.value;
+    refetch();
+  };
+
+  allItems = useMemo(() => {
+    if (changeSearchPhraseRef.current && items) return [...items];
+    if (changeCategoryRef.current && items) return [...items];
+    if (items) return [...allItems, ...items];
+    return [];
+  }, [items]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <ErrorPage />;
 
   return (
     <div className="catalog">
-      <CatalogSearch />
+      <CatalogSearch
+        searchPhrase={searchPhraseRef.current}
+        onChange={onSearch}
+      />
       <h2>Каталог</h2>
       <div className="nav-panel">
         <button
-          className="categories"
-          onClick={() => onChangeCategory(ALL_CATEGORIES)}
+          className={categoryButtonClass}
+          onClick={() => handleChangeCategory(ALL_CATEGORIES)}
         >
           Все
         </button>
         {categories?.map(({ id, title }) => (
           <div key={id}>
-            <button className="categories" onClick={() => onChangeCategory(id)}>
+            <div
+              className={generateCategoryButtonClass(id)}
+              onClick={() => handleChangeCategory(id)}
+            >
               {title}
-            </button>
+            </div>
           </div>
         ))}
       </div>
       <div className="items-card">
-        {items?.map(({ title, price, category, images, id }) => (
+        {allItems?.map(({ title, price, category, images, id }) => (
           <CardItem
             key={id}
             id={id}
@@ -65,13 +109,11 @@ export const Catalog = () => {
           />
         ))}
       </div>
-      <button
-        onClick={addItems}
-        disabled={!isActive || !items || items.length === 0}
-        className={isActive ? "activeButton" : "inactiveButton"}
-      >
-        Загрузить еще
-      </button>
+      {!items || items.length === 0 ? (
+        <></>
+      ) : (
+        <button onClick={handleLoadMoreItems}>Загрузить еще</button>
+      )}
     </div>
   );
 };
