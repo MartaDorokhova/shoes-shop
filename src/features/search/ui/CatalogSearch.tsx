@@ -1,5 +1,4 @@
 import "./search.css";
-// import { useFetchAllItemsQuery } from "features/catalog";
 
 export const CatalogSearch = ({
   searchPhrase,
