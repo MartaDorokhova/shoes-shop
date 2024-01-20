@@ -1,0 +1,52 @@
+.item {
+  margin-top: 30px;
+  text-align: center;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-container {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: normal;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: auto;
+  font-weight: normal;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.left {
+  width: 350px;
+}
+
+.right {
+  width: 500px;
+}
+
+.size {
+  display: flex;
+}
+
+.count {
+  display: flex;
+  width: 250px;
+  margin: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
